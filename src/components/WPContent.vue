@@ -9,6 +9,26 @@ export default {
     props: {
         content: String,
     },
+    updated() {
+        // We have to do some anti-vue dom maniupulation, rendering v-html as we only recieve it as a string
+        const tables = document.getElementsByTagName('table');
+        [...tables].forEach(this.wrapTable);
+
+        const headers = document.getElementsByTagName('h2');
+        this.generateAnchorLinks([...headers]);
+
+    },
+    methods: {
+        wrapTable(item) {
+            const wrapper = document.createElement('div');
+            wrapper.className = "table-wrapper";
+            item.parentNode.insertBefore(wrapper, item);
+            wrapper.appendChild(item);
+        },
+        generateAnchorLinks(linkArray){
+            this.$emit('generateAnchorLinks', linkArray)
+        }
+    }
 }
 </script>
 
@@ -34,11 +54,11 @@ export default {
 }
 
 #wp-content h2 {
-    @apply text-black mb-6 mt-10 text-3xl font-bold leading-snug;
+    @apply text-black mb-6 mt-10 text-2xl font-semibold leading-snug;
 }
 
 #wp-content h3 {
-    @apply text-gray-800 mb-4 mt-10 text-2xl font-semibold leading-snug;
+    @apply text-gray-800 mb-4 mt-10 text-xl font-semibold leading-snug;
 }
 
 #wp-content h4 {
@@ -47,12 +67,11 @@ export default {
 
 @screen md {
     #wp-content h2 {
-        @apply text-black mb-6 mt-10 text-3xl font-bold leading-snug w-5/6;
+        @apply text-black mb-6 mt-10 text-3xl font-semibold leading-snug w-5/6;
     }
     #wp-content h3 {
-        @apply text-gray-800 mb-4 mt-10 text-2xl font-semibold leading-snug w-5/6;
+        @apply text-gray-800 mb-4 mt-10 text-xl font-semibold leading-snug w-5/6;
     }
-    ,
     #wp-content h4 {
         @apply text-black mb-4 mt-10 text-lg font-semibold leading-snug w-5/6;
     }
@@ -115,12 +134,20 @@ export default {
     @apply text-white font-normal text-sm !important;
 }
 
+.table-wrapper {
+    @apply overflow-scroll bg-white mb-8 rounded-lg shadow text-left relative;
+}
+
 table {
-    @apply w-full overflow-hidden border-collapse whitespace-no-wrap bg-white relative !important;
+    @apply border-collapse table-auto w-full whitespace-no-wrap bg-white relative !important;
 }
 
 thead tr td {
-    @apply py-2 px-3 sticky top-0 border-b border-gray-200 bg-gray-100 text-gray-600 font-bold tracking-wider uppercase !important;
+    @apply sticky top-0 border-b px-6 py-4 bg-purple-900 text-white font-bold tracking-wider uppercase text-xs !important;
+}
+
+tbody tr td {
+    @apply text-gray-700 px-6 py-3 items-center !important;
 }
 
 tr {

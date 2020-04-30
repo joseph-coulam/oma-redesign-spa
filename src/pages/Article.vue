@@ -8,7 +8,7 @@
             <div class="w-full mx-auto px-2 pt-8 lg:pt-20">
                 <SubNav />
             </div>
-            
+    
             <div v-if="this.content" class="container w-full mx-auto px-2">
                 <Header :title="this.content.title" :subtitle="this.content.subtitle" :author="this.author" :timestamp="this.timestamp" />
             </div>
@@ -20,11 +20,11 @@
                 </div>
     
                 <div class="w-full lg:w-7/12 py-0 px-8 text-gray-900 leading-normal bg-white">
-                    <WPContent :content="this.content.article" />
+                    <WPContent :content="this.content.article" @generateAnchorLinks="generateAnchorLinks" />
                 </div>
     
                 <div class="w-full lg:w-3/12 lg:px-6 text-xl text-gray-800 leading-normal">
-                    <Sidebar />
+                    <Sidebar :anchorLinks="this.anchorLinks" />
                 </div>
     
             </div>
@@ -79,7 +79,8 @@ export default {
             relatedArticles: {},
             author: {},
             categories: {},
-            tags: {}
+            tags: {},
+            anchorLinks: []
         }
     },
 
@@ -89,10 +90,15 @@ export default {
 
     mounted() {},
     watch: {
-        '$route': 'fetchData'
+        // '$route': 'fetchData'
     },
+
     methods: {
+        generateAnchorLinks(data){
+            this.anchorLinks = data;
+        },
         fetchData() {
+            console.log("test");
             axios.get(`${this.baseUrl}${this.$route.params.id}/`)
                 .then((resp) => {
                     const data = resp.data;
@@ -134,7 +140,6 @@ export default {
                         this.author.imageUrl = this.author.avatar_urls[96]
                         this.categories = responses[2].data
                         this.tags = responses[3].data
-                        console.log(this);
                     })).catch((err) => {
                         console.log(err);
                     })
