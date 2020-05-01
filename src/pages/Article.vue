@@ -3,34 +3,40 @@
         <vue-scroll-progress-bar backgroundColor="linear-gradient(to right, #ED653D, #ED653D)" zIndex="100" height=".3rem" />
         <div id="layout" class="bg-white-100 tracking-normal">
             <!--Nav-->
-            <Nav />
     
-            <div class="w-full mx-auto px-2 pt-8 lg:pt-20">
-                <SubNav />
+            <div class="w-full min-h-screen mx-auto pt-20 lg:pt-20 flex flex-col">
+                <div class="flex flex-initial">
+                    <Nav />
+                    <SubNav />
+                </div>
+                <div v-if="!loaded" class="container flex flex-1 justify-center items-center content-center w-full mx-auto">
+                    <Loading />
+                </div>
             </div>
     
-            <div v-if="this.content" class="container w-full mx-auto px-2">
-                <Header :title="this.content.title" :subtitle="this.content.subtitle" :author="this.author" :timestamp="this.timestamp" />
+            <div v-if="loaded">
+                <!-- Header -->
+                <div class="container w-full mx-auto px-2">
+                    <Header :title="this.content.title" :subtitle="this.content.subtitle" :author="this.author" :timestamp="this.timestamp" />
+                </div>
+    
+                <!-- Content -->
+                <div class="container w-full flex flex-wrap mx-auto px-2 py-8 lg:pt-16">
+    
+                    <div class="w-full lg:w-2/12 lg:px-0 text-xl text-gray-800 leading-normal">
+                        <Sharebar />
+                    </div>
+    
+                    <div class="w-full lg:w-7/12 py-0 px-8 text-gray-900 leading-normal bg-white">
+                        <WPContent :content="this.content.article" @generateAnchorLinks="generateAnchorLinks" />
+                    </div>
+    
+                    <div class="w-full lg:w-3/12 lg:px-6 text-xl text-gray-800 leading-normal">
+                        <Sidebar :anchorLinks="this.anchorLinks" />
+                    </div>
+    
+                </div>
             </div>
-            <div class="container w-full flex flex-wrap mx-auto px-2 py-8 lg:pt-16">
-    
-                <!--WPContent-->
-                <div class="w-full lg:w-2/12 lg:px-0 text-xl text-gray-800 leading-normal">
-                    <Sharebar />
-                </div>
-    
-                <div class="w-full lg:w-7/12 py-0 px-8 text-gray-900 leading-normal bg-white">
-                    <WPContent :content="this.content.article" @generateAnchorLinks="generateAnchorLinks" />
-                </div>
-    
-                <div class="w-full lg:w-3/12 lg:px-6 text-xl text-gray-800 leading-normal">
-                    <Sidebar :anchorLinks="this.anchorLinks" />
-                </div>
-    
-            </div>
-    
-            <!--/container-->
-    
             <FooterNav />
             <Footer />
     
@@ -44,6 +50,7 @@ import Nav from '@/components/Nav.vue'
 import SubNav from '@/components/SubNav.vue'
 // import Breadcrumb from '@/components/Breadcrumb.vue'
 import Header from '@/components/Header.vue'
+import Loading from '@/components/Loading.vue'
 import WPContent from '@/components/WPContent.vue'
 import Sidebar from '@/components/sidebar/Sidebar.vue'
 import Sharebar from '@/components/Sharebar.vue'
@@ -60,6 +67,7 @@ export default {
         VueScrollProgressBar,
         // Breadcrumb,
         Header,
+        Loading,
         WPContent,
         Sidebar,
         Sharebar,
@@ -69,7 +77,7 @@ export default {
 
     data() {
         return {
-            loading: true,
+            loaded: false,
             progress: 0,
             baseUrl: 'https://onlinemortgageadvisor.co.uk/wp-json/wp/v2/posts/',
             timestamp: {},
@@ -94,13 +102,14 @@ export default {
     },
 
     methods: {
-        generateAnchorLinks(data){
+        generateAnchorLinks(data) {
             this.anchorLinks = data;
         },
         fetchData() {
-            console.log("test");
             axios.get(`${this.baseUrl}${this.$route.params.id}/`)
                 .then((resp) => {
+                    this.loaded = true;
+
                     const data = resp.data;
                     // this.slug = data.slug;
                     // this.link = data.link;
