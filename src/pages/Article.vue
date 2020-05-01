@@ -4,6 +4,8 @@
         <div id="layout" class="bg-white-100 tracking-normal">
             <!--Nav-->
     
+            <StickyMessage />
+    
             <div :class="{'min-h-screen':!loaded}" class="w-full mx-auto pt-20 lg:pt-20 flex flex-col">
                 <div class="flex flex-initial">
                     <Nav />
@@ -52,6 +54,7 @@ import SubNav from '@/components/SubNav.vue'
 import Header from '@/components/Header.vue'
 import Loading from '@/components/Loading.vue'
 import WPContent from '@/components/WPContent.vue'
+import StickyMessage from '@/components/StickyMessage.vue'
 import Sidebar from '@/components/sidebar/Sidebar.vue'
 import Sharebar from '@/components/Sharebar.vue'
 import FooterNav from '@/components/footer/FooterNav.vue'
@@ -66,6 +69,7 @@ export default {
         SubNav,
         VueScrollProgressBar,
         // Breadcrumb,
+        StickyMessage,
         Header,
         Loading,
         WPContent,
@@ -79,7 +83,7 @@ export default {
         return {
             loaded: false,
             progress: 0,
-            baseUrl: 'https://onlinemortgageadvisor.co.uk/wp-json/wp/v2/posts/',
+            baseUrl: 'https://onlinemortgageadvisor.co.uk/wp-json/wp/v2/posts?slug=',
             timestamp: {},
             content: {},
             featuredMedia: {},
@@ -108,6 +112,7 @@ export default {
         fetchData() {
             axios.get(`${this.baseUrl}${this.$route.params.id}/`)
                 .then((resp) => {
+                    console.log(resp);
                     this.loaded = true;
 
                     const data = resp.data;
