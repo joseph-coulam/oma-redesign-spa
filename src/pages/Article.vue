@@ -27,11 +27,11 @@
                         <Sharebar />
                     </div>
     
-                    <div class="w-full lg:w-8/12 py-0 px-0 text-gray-900 leading-normal bg-white">
+                    <div class="w-full lg:w-7/12 text-gray-900 leading-normal bg-white">
                         <WPContent :content="this.content.article" @generateAnchorLinks="generateAnchorLinks" />
                     </div>
     
-                    <div class="w-full lg:w-3/12 text-xl text-gray-800 leading-normal">
+                    <div class="w-full lg:w-4/12 text-xl text-gray-800 leading-normal">
                         <Sidebar :anchorLinks="this.anchorLinks" :recommended="this.relatedArticles" />
                     </div>
     
@@ -79,12 +79,12 @@ export default {
         return {
             loaded: false,
             progress: 0,
-            baseUrl: 'https://onlinemortgageadvisor.co.uk/wp-json/wp/v2/posts/',
+            baseUrl: 'https://onlinemortgageadvisor.co.uk/wp-json/wp/v2/posts?slug=',
             timestamp: {},
             content: {},
             featuredMedia: {},
             entryPoints: {},
-            relatedArticles: {},
+            relatedArticles: [],
             author: {},
             categories: {},
             tags: {},

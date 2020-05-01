@@ -1,5 +1,5 @@
 <template>
-    <div id="wp-content" v-html="this.content" class="w-full py-0 text-gray-900 leading-normal bg-white">
+    <div id="wp-content" v-html="this.content" class="w-full py-0 pr-8 text-gray-900 leading-normal bg-white">
     </div>
 </template>
 
@@ -24,7 +24,7 @@ export default {
             item.parentNode.insertBefore(wrapper, item);
             wrapper.appendChild(item);
         },
-        generateAnchorLinks(linkArray){
+        generateAnchorLinks(linkArray) {
             this.$emit('generateAnchorLinks', linkArray)
         }
     }
@@ -81,7 +81,6 @@ export default {
     position: absolute;
     width: 100vw;
     height: 100%;
-    background-color: red;
     left: 58%;
     right: 42%;
     margin-left: -50vw;
@@ -129,35 +128,69 @@ export default {
     @apply flex flex-col justify-center text-center content-center font-bold text-base py-2 px-6 rounded-lg bg-green-500 text-white no-underline !important;
 }
 
+.feefo-cta__button:hover {
+    @apply bg-green-700 !important;
+}
+
 .feefo-cta__button span {
-    @apply text-white font-normal text-sm !important;
+    @apply text-white font-normal text-sm;
+}
+
+.wp-block-media-text {
+    @apply flex bg-gray-100 flex-col py-12 px-6;
+}
+
+@screen md {
+    .wp-block-media-text {
+        @apply flex-row;
+    }
+}
+
+.wp-block-media-text hr {
+    @apply hidden;
+}
+
+.wp-block-media-text__content {
+    @apply pl-8 flex flex-col justify-center content-center;
+}
+
+.wp-block-media-text__content h4 {
+    @apply text-2xl m-0 mb-1 w-full leading-snug !important;
+}
+
+.wp-block-media-text__content p {
+    @apply text-base text-gray-600 m-0 mb-4 !important;
+}
+
+.wp-block-button a {
+    @apply text-white bg-green-500 text-sm font-bold no-underline inline-block py-3 px-6 rounded-full leading-none !important;
+}
+
+.wp-block-button a:hover {
+    @apply bg-green-700 !important;
 }
 
 .table-wrapper {
-    @apply overflow-scroll bg-white mb-8 rounded-lg shadow text-left relative;
+    @apply overflow-scroll bg-white my-8 shadow-lg text-left relative rounded-lg;
 }
 
 table {
-    @apply border-collapse table-auto w-full whitespace-no-wrap bg-white relative !important;
+    @apply border-collapse table-auto w-full whitespace-no-wrap bg-white relative;
 }
 
 thead tr td {
-    @apply sticky top-0 border-b px-6 py-4 bg-purple-900 text-white font-bold tracking-wider uppercase text-xs !important;
+    @apply sticky top-0 border-b px-6 py-4 bg-purple-900 text-white font-bold tracking-wider uppercase text-xs;
 }
 
 tbody tr td {
-    @apply text-gray-700 px-6 py-3 items-center !important;
+    @apply text-gray-700 px-6 py-3 items-center;
 }
 
 tr {
     @apply text-left bg-gray-100;
 }
 
-th {
-    @apply py-2 px-3 sticky top-0 border-b border-gray-200 bg-gray-100 !important;
-}
-
-td {
-    @apply border-dashed border-t border-gray-200 px-3 !important;
+tr:nth-child(even) {
+    @apply bg-white;
 }
 </style>
