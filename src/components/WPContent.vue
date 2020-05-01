@@ -9,14 +9,13 @@ export default {
     props: {
         content: String,
     },
-    updated() {
+    mounted() {
         // We have to do some anti-vue dom maniupulation, rendering v-html as we only recieve it as a string
         const tables = document.getElementsByTagName('table');
         [...tables].forEach(this.wrapTable);
 
         const headers = document.getElementsByTagName('h2');
         this.generateAnchorLinks([...headers]);
-
     },
     methods: {
         wrapTable(item) {
@@ -42,7 +41,7 @@ export default {
 }
 
 #wp-content p {
-    @apply text-black mb-6 leading-relaxed tracking-wide antialiased;
+    @apply text-black mb-6 leading-relaxed antialiased;
 }
 
 #wp-content ul {
@@ -54,11 +53,11 @@ export default {
 }
 
 #wp-content h2 {
-    @apply text-black mb-6 mt-10 text-2xl font-semibold leading-snug;
+    @apply text-black mb-6 mt-10 text-2xl font-bold leading-snug;
 }
 
 #wp-content h3 {
-    @apply text-gray-800 mb-4 mt-10 text-xl font-semibold leading-snug;
+    @apply text-gray-800 mb-4 mt-10 text-xl font-bold leading-snug;
 }
 
 #wp-content h4 {
@@ -67,10 +66,10 @@ export default {
 
 @screen md {
     #wp-content h2 {
-        @apply text-black mb-6 mt-10 text-3xl font-semibold leading-snug w-5/6;
+        @apply text-black mb-6 mt-10 text-3xl font-bold leading-snug w-5/6;
     }
     #wp-content h3 {
-        @apply text-gray-800 mb-4 mt-10 text-xl font-semibold leading-snug w-5/6;
+        @apply text-gray-800 mb-4 mt-10 text-xl font-bold leading-snug w-5/6;
     }
     #wp-content h4 {
         @apply text-black mb-4 mt-10 text-lg font-semibold leading-snug w-5/6;

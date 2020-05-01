@@ -4,7 +4,7 @@
         <div id="layout" class="bg-white-100 tracking-normal">
             <!--Nav-->
     
-            <div class="w-full min-h-screen mx-auto pt-20 lg:pt-20 flex flex-col">
+            <div :class="{'min-h-screen':!loaded}" class="w-full mx-auto pt-20 lg:pt-20 flex flex-col">
                 <div class="flex flex-initial">
                     <Nav />
                     <SubNav />
@@ -23,16 +23,16 @@
                 <!-- Content -->
                 <div class="container w-full flex flex-wrap mx-auto px-2 py-8 lg:pt-16">
     
-                    <div class="w-full lg:w-2/12 lg:px-0 text-xl text-gray-800 leading-normal">
+                    <div class="w-full lg:w-1/12 text-xl text-gray-800 leading-normal">
                         <Sharebar />
                     </div>
     
-                    <div class="w-full lg:w-7/12 py-0 px-8 text-gray-900 leading-normal bg-white">
+                    <div class="w-full lg:w-8/12 py-0 px-0 text-gray-900 leading-normal bg-white">
                         <WPContent :content="this.content.article" @generateAnchorLinks="generateAnchorLinks" />
                     </div>
     
-                    <div class="w-full lg:w-3/12 lg:px-6 text-xl text-gray-800 leading-normal">
-                        <Sidebar :anchorLinks="this.anchorLinks" />
+                    <div class="w-full lg:w-3/12 text-xl text-gray-800 leading-normal">
+                        <Sidebar :anchorLinks="this.anchorLinks" :recommended="this.relatedArticles" />
                     </div>
     
                 </div>
@@ -144,11 +144,12 @@ export default {
                     const requestTags = axios.get(this.entryPoints.entryTags);
 
                     axios.all([requestRelated, requestAuthor, requestCategories, requestTags]).then(axios.spread((...responses) => {
-                        this.relatedArticles = responses[0]
+                        this.relatedArticles = responses[0].data
                         this.author = responses[1].data
                         this.author.imageUrl = this.author.avatar_urls[96]
                         this.categories = responses[2].data
                         this.tags = responses[3].data
+
                     })).catch((err) => {
                         console.log(err);
                     })
