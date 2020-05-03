@@ -18,7 +18,7 @@
     
             <div v-if="loaded">
                 <!-- Header -->
-                <div class="container w-full mx-auto px-2">
+                <div class="container w-full mx-auto">
                     <Header :title="this.content.title" :subtitle="this.content.subtitle" :author="this.author" :timestamp="this.timestamp" />
                 </div>
     
@@ -110,12 +110,11 @@ export default {
             this.anchorLinks = data;
         },
         fetchData() {
-            axios.get(`${this.baseUrl}${this.$route.params.id}/`)
+            axios.get(`${this.baseUrl}${this.$route.params.slug}/`)
                 .then((resp) => {
                     console.log(resp);
                     this.loaded = true;
-
-                    const data = resp.data;
+                    const data = resp.data[0];
                     // this.slug = data.slug;
                     // this.link = data.link;
 

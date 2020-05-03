@@ -11,7 +11,8 @@ export default {
     },
     mounted() {
         // We have to do some anti-vue dom maniupulation, rendering v-html as we only recieve it as a string
-        const tables = document.getElementsByTagName('table');
+        const wordpressContent = document.getElementById("wp-content");
+        const tables = wordpressContent.getElementsByTagName('table');
         [...tables].forEach(this.wrapTable);
 
         const headers = document.getElementsByTagName('h2');
@@ -45,23 +46,55 @@ export default {
 }
 
 #wp-content ul {
-    @apply mb-6;
+    @apply my-2;
 }
 
-#wp-content li {
-    @apply text-sm mb-2;
+#wp-content ul li a {
+    @apply text-sm border-b font-normal no-underline text-purple-900 m-0 p-0;
+}
+
+#wp-content ul li::before {
+    content: "";
+    position: relative;
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    top: 0;
+    left: 0;
+    margin: auto;
+    border-radius: 3px;
+    margin-right: .8rem;
+    @apply bg-purple-900;
+}
+
+#wp-content ul li li {
+    @apply text-sm mb-1 ml-4;
+}
+
+#wp-content ul li li a {
+    @apply text-gray-600;
+}
+
+#wp-content ul li li::before {
+    width: 4px;
+    height: 4px;
+    @apply bg-purple-500;
 }
 
 #wp-content h2 {
-    @apply text-black mb-6 mt-10 text-2xl font-bold leading-snug;
+    margin-top: -80px !important;
+    padding-top: 100px !important;
+    @apply text-black mb-6 text-2xl font-bold leading-snug;
 }
 
 #wp-content h3 {
+    margin-top: -80px !important;
+    padding-top: 100px !important;
     @apply text-gray-800 mb-4 mt-10 text-xl font-bold leading-snug;
 }
 
 #wp-content h4 {
-    @apply text-black text-gray-700 mb-4 mt-10 text-lg font-semibold leading-snug;
+    @apply text-black mb-3 mt-10 text-sm font-bold uppercase tracking-wide leading-snug text-gray-700;
 }
 
 @screen md {
@@ -72,7 +105,7 @@ export default {
         @apply text-gray-800 mb-4 mt-10 text-xl font-bold leading-snug w-5/6;
     }
     #wp-content h4 {
-        @apply text-black mb-4 mt-10 text-lg font-semibold leading-snug w-5/6;
+        @apply text-black mb-3 mt-10 text-sm font-bold uppercase tracking-wide leading-snug text-gray-700;
     }
 }
 
@@ -171,6 +204,7 @@ export default {
 }
 
 .table-wrapper {
+    max-height: 80vh;
     @apply overflow-scroll bg-white my-8 shadow-lg text-left relative rounded-lg;
 }
 
@@ -183,7 +217,11 @@ thead tr td {
 }
 
 tbody tr td {
-    @apply text-gray-700 px-6 py-3 items-center;
+    @apply text-sm text-gray-700 px-6 py-3 items-center;
+}
+
+tbody tr td a {
+    @apply text-sm text-purple-900 font-semibold !important;
 }
 
 tr {

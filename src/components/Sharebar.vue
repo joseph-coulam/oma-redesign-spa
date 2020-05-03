@@ -1,12 +1,12 @@
 <template>
     <div class="w-full sticky inset-0 hidden lg:h-auto overflow-x-hidden overflow-y-auto lg:overflow-y-hidden lg:block mt-0 py-2 border border-gray-400 lg:border-transparent bg-white shadow lg:shadow-none lg:bg-transparent z-20" style="top:5em;" id="menu-content">
-        <div>
+        <div @click="share(facebookUri, Facebook)">
             <svg id="share_facebook" class="cursor-pointer transition-colors duration-200 ease-in-out fill-current text-black w-8 h-8 mb-4 hover:text-orange-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 33 33"><path d="M16.5,0A16.5,16.5,0,1,0,33,16.5,16.5,16.5,0,0,0,16.5,0Zm3.7,11.6H18.76c-1.13,0-1.35.54-1.35,1.33v1.74h2.7l-.35,2.74H17.4v7H14.58v-7H12.22V14.67h2.36v-2a2.72,2.72,0,0,1,0-.57,3.28,3.28,0,0,1,3.52-3c.7,0,1.4,0,2.1.1Z"/></svg>
         </div>
-        <div>
+        <div  @click="share(twitterUri, Twitter)">
             <svg id="share_twitter" class="cursor-pointer transition-colors duration-200 ease-in-out fill-current text-black w-8 h-8 mb-4 hover:text-orange-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 33 33"><path d="M16.5,0A16.5,16.5,0,1,0,33,16.5,16.5,16.5,0,0,0,16.5,0Zm6.69,13.59c0,.13,0,.27,0,.41v.12a9.2,9.2,0,0,1-9.26,9.13,9.34,9.34,0,0,1-5-1.46,6.79,6.79,0,0,0,.78,0,6.54,6.54,0,0,0,4-1.39,3.28,3.28,0,0,1-3-2.26,3.28,3.28,0,0,0,1.46-.06,3.25,3.25,0,0,1-2.61-3.19v0A3.31,3.31,0,0,0,11,15.3a3.26,3.26,0,0,1-1.44-2.71A3.15,3.15,0,0,1,10,11a9.2,9.2,0,0,0,6.7,3.4,3.82,3.82,0,0,1-.08-.75,3.25,3.25,0,0,1,5.63-2.22,7,7,0,0,0,2.06-.78,3.27,3.27,0,0,1-1.43,1.8,6.34,6.34,0,0,0,1.87-.52h0A6.35,6.35,0,0,1,23.19,13.59Z"/></svg>
         </div>
-        <div>
+        <div  @click="copyLink">
             <svg id="share_link" class="cursor-pointer transition-colors duration-200 ease-in-out fill-current text-black w-8 h-8 mb-4 hover:text-orange-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 33 33"><path d="M16.5,0A16.5,16.5,0,1,0,33,16.5,16.5,16.5,0,0,0,16.5,0Zm.87,20.15L15,22.5a3.15,3.15,0,0,1-4.45-4.45l2.86-2.87a3.16,3.16,0,0,1,3.93-.42,3.06,3.06,0,0,1,.53.42h0a.89.89,0,0,1,0,1.26.93.93,0,0,1-1.26,0,1.35,1.35,0,0,0-1.91,0l-2.87,2.87-.05.05a1.35,1.35,0,0,0,2,1.86l1.7-1.7a.25.25,0,0,1,.25-.05,3.7,3.7,0,0,0,1.44.28h.09a.24.24,0,0,1,.16.07A.23.23,0,0,1,17.37,20.15ZM22.2,15.3l-2.86,2.87a3.08,3.08,0,0,1-1.46.82h0l-.13,0h-.07l-.15,0h-.24l-.13,0H17l-.34,0L16.35,19l-.13,0-.15-.05-.14-.05-.14-.06a3.17,3.17,0,0,1-.9-.63.9.9,0,0,1,0-1.27.93.93,0,0,1,1.26,0,1.35,1.35,0,0,0,1.91,0l.74-.73,0,0L20.93,14a1.36,1.36,0,0,0,0-1.86,1.35,1.35,0,0,0-1.91,0l-1.7,1.69a.23.23,0,0,1-.24,0,3.77,3.77,0,0,0-1.44-.28h-.08a.28.28,0,0,1-.17-.07.24.24,0,0,1,0-.32l2.36-2.36h0a3.16,3.16,0,0,1,4.46,0h0A3.14,3.14,0,0,1,22.2,15.3Z"/></svg>
         </div>
     </div>
@@ -15,6 +15,21 @@
 <script>
 export default {
     name: 'Sharebar',
-    props: {}
+    props: {},
+    data: function() {
+        return {
+            uri: encodeURIComponent(location.href),
+            facebookUri: `https://www.facebook.com/sharer/sharer.php?u=${this.uri}`,
+            twitterUri: `https://twitter.com/share?url=${this.uri}`
+        }
+    },
+    methods: {
+        share(uri, type) {
+            window.open(uri, type, "toolbar=no,location=0,status=no,menubar=no,scrollbars=yes,width=550,height=285,resizable=1");
+        },
+        copyLink() {
+
+        }
+    }
 }
 </script>
