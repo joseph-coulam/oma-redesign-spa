@@ -1,12 +1,12 @@
 <template>
-    <div v-if="selectedArticles.length > 0" class="w-full bg-white px-8">
-        <p class="py-2 mb-2 font-bold tracking-wider uppercase text-sm">Related Articles</p>
-        <div v-for="article in selectedArticles" :key="article.id" class="flex flex-column border-t border-gray-300 items-center py-4">
+    <div v-if="selectedArticles.length > 0" class="w-full bg-white">
+        <p class="mt-2 mb-8 font-bold tracking-wider uppercase text-sm">Related Articles</p>
+        <div v-for="article in selectedArticles" :key="article.id" class="flex flex-column items-center">
             <!-- <div class="bg-green-500 w-8 h-8 mr-4 rounded"></div> -->
-            <div class="flex flex-col justify-center bg-white">
+            <div class="flex flex-col justify-center border-l-4 border-gray-200 hover:border-purple-500 pl-4 py-0 mb-4 transition-all duraiton-500 ease-in-out">
                 <a :href="article.link" target="_blank">
-                    <p class="text-base font-bold text-black mb-2">{{article.title.rendered}}</p>
-                    <p class="text-sm text-gray-600" v-html="article.excerpt.rendered"></p>
+                    <p class="text-indigo text-xl mb-2">{{article.title.rendered}}</p>
+                    <p class="text-sm text-black leading-relaxed" v-html="article.excerpt.rendered"></p>
                 </a>
             </div>
         </div>
@@ -22,8 +22,6 @@ export default {
     },
     computed: {
         selectedArticles: function() {
-            console.log(this.recommended);
-            // `this` points to the vm instance
             return this.recommended.slice(0, this.display);
         }
     },

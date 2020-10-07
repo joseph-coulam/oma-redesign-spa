@@ -1,7 +1,5 @@
 <template>
-    <button class="btn" :class="[`btn--${varient}`, `btn--${size}`]">
-            <slot>Button</slot>
-        </button>
+    <button class="btn font-display" @click="onClick" :class="[`btn--${varient}`, `btn--${size}`]"><slot>Button</slot></button>
 </template>
 
 <script>
@@ -9,15 +7,15 @@ export default {
     name: 'Button',
     props: {
         size: {
-          type: String,
-          default: 'medium'
+            type: String,
+            default: 'medium'
         },
         varient: {
             type: String,
             default: 'primary'
         },
-        onClick: {
-            type: Function,
+        url: {
+            type: String,
         }
     },
     computed: {
@@ -26,6 +24,11 @@ export default {
                 active: this.isActive
             }
         }
+    },
+    methods: {
+        onClick: function() {
+            window.open(this.url, "_blank");
+        }
     }
 }
 </script>
@@ -33,10 +36,10 @@ export default {
 
 <style scoped lang="postcss">
 .btn {
-    @apply font-semibold text-sm py-2 px-6 rounded-full;
+    @apply font-semibold text-sm py-2 px-6 rounded-full outline-none transition-colors ease-in-out duration-300;
 }
 
-.btn--large{
+.btn--large {
     @apply font-semibold text-base py-3 px-10 rounded-full;
 }
 

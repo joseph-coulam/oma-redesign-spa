@@ -1,7 +1,7 @@
 <template>
     <div class="w-full h-full bg-white">
         <div class="mb-8">
-        <Recommended :recommended="recommended" :display="2" />
+            <Recommended :recommended="recommended" :display="2" />
         </div>
         <div class="w-full sticky z-20" style="top:5em;" id="menu-content">
             <StickyNav :anchorLinks="anchorLinks" />
@@ -23,5 +23,4 @@ export default {
         recommended: Array
     }
 }
-
 </script>

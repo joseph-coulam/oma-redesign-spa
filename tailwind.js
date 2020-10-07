@@ -2,6 +2,10 @@ module.exports = {
   prefix: '',
   important: false,
   separator: ':',
+  purge: [
+    './src/**/*.html',
+    './src/**/*.vue'
+  ],
   theme: {
     screens: {
       sm: '640px',
@@ -42,7 +46,7 @@ module.exports = {
         200: '#feebc8',
         300: '#fbd38d',
         400: '#f6ad55',
-        500: '#ed8936',
+        500: '#ed653d',
         600: '#dd6b20',
         700: '#c05621',
         800: '#9c4221',
@@ -64,7 +68,7 @@ module.exports = {
         200: '#c6f6d5',
         300: '#9ae6b4',
         400: '#68d391',
-        500: '#15B276',
+        500: '#01b170',
         600: '#38a169',
         700: '#2f855a',
         800: '#276749',
@@ -104,13 +108,13 @@ module.exports = {
         900: '#3c366b',
       },
       purple: {
-        100: '#faf5ff',
+        100: '#f4f2f5',
         200: '#e9d8fd',
         300: '#d6bcfa',
         400: '#b794f4',
         500: '#9f7aea',
         600: '#805ad5',
-        700: '#6b46c1',
+        700: '#4D1A72',
         800: '#553c9a',
         900: '#241D2F',
       },
@@ -223,23 +227,10 @@ module.exports = {
       default: '1',
     },
     fontFamily: {
-      sans: [
-        'system-ui',
-        '-apple-system',
-        'BlinkMacSystemFont',
-        '"Segoe UI"',
-        'Roboto',
-        '"Helvetica Neue"',
-        'Arial',
-        '"Noto Sans"',
-        'sans-serif',
-        '"Apple Color Emoji"',
-        '"Segoe UI Emoji"',
-        '"Segoe UI Symbol"',
-        '"Noto Color Emoji"',
-      ],
+      sans: ['lato, sans-serif'],
       serif: ['Georgia', 'Cambria', '"Times New Roman"', 'Times', 'serif'],
       mono: ['Menlo', 'Monaco', 'Consolas', '"Liberation Mono"', '"Courier New"', 'monospace'],
+      display: ['neuzeit-grotesk, Helvetica, sans-serif']
     },
     fontSize: {
       xs: '0.75rem',

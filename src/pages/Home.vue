@@ -8,15 +8,6 @@
   export default {
     name: 'Home',
 
-    data() {
-    },
-
-    created() {
-    },
-
-    mounted(){
-    },
-
     methods: {
     }
   }
